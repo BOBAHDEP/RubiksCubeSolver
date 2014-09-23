@@ -51,7 +51,6 @@ public class Cube {
             System.out.println("      " + cube[0][i][0] + " " + cube[1][i][0] + " " + cube[2][i][0] + "      ");
         }
         System.out.println("      -----     ");
-        //System.out.println("-------------------------------");
     }
 
     private boolean checkWinOneSide(int sideNumber){
@@ -108,7 +107,7 @@ public class Cube {
         return true;
     }
 
-    public boolean checkRightPositionOfCubeParts(){                     //todo try with random steps
+    public boolean checkRightPositionOfCubeParts(){
 
         int [] linePartsOfCube = initializationTwoParticles();
 
@@ -581,7 +580,7 @@ public class Cube {
                 verticalMoveUP(2);
                 rotateBottomPositiveAxis();
             } else {
-                System.out.println("test_ERROR!! 44");
+                System.err.println("test_ERROR!! 44");
                 cubeOut();
             }
         }
@@ -625,7 +624,7 @@ public class Cube {
             verticalMoveDown(2);
         } else
         if (cube[2][2][2] != cube[1][1][2]){
-                System.out.println("test_ERROR!!!! in position333Solve");
+                System.err.println("test_ERROR!!!! in position333Solve");
             }
     }
 
@@ -726,49 +725,48 @@ public class Cube {
                     cube[0][1][2] != cube[1][1][0] && cube[2][1][2] != cube[1][1][0] &&
                     cube[0][1][3] != cube[1][1][0] && cube[2][1][3] != cube[1][1][0] &&
                     cube[0][1][5] != cube[1][1][0] && cube[2][1][5] != cube[1][1][0] ){
-            if (cube[0][1][1] != cube[1][1][0]){
-                moveSideToTheRight();
-                middleLeftMove();
-            }
-            if (cube[2][1][1] != cube[1][1][0]){
-                moveSideToTheRight();
-                middleRightMove();
-            }
-            if (cube[0][1][2] != cube[1][1][0]){
-                middleLeftMove();
-            }
-            if (cube[2][1][2] != cube[1][1][0]){
-                middleRightMove();
-            }
-            if (cube[0][1][3] != cube[1][1][0]){
-                moveSideToTheLeft();
-                middleLeftMove();
-            }
-            if (cube[2][1][3] != cube[1][1][0]){
-                moveSideToTheLeft();
-                middleRightMove();
-            }
-            if (cube[0][1][5] != cube[1][1][0]){
-                moveSideToTheLeft();
-                moveSideToTheLeft();
-                middleRightMove();
-            }
-            if (cube[2][1][5] != cube[1][1][0]){
-                moveSideToTheLeft();
-                moveSideToTheLeft();
-                middleLeftMove();
-            }
+                if (cube[0][1][1] != cube[1][1][0]){
+                    moveSideToTheRight();
+                    middleLeftMove();
+                }
+                if (cube[2][1][1] != cube[1][1][0]){
+                    moveSideToTheRight();
+                    middleRightMove();
+                }
+                if (cube[0][1][2] != cube[1][1][0]){
+                    middleLeftMove();
+                }
+                if (cube[2][1][2] != cube[1][1][0]){
+                    middleRightMove();
+                }
+                if (cube[0][1][3] != cube[1][1][0]){
+                    moveSideToTheLeft();
+                    middleLeftMove();
+                }
+                if (cube[2][1][3] != cube[1][1][0]){
+                    moveSideToTheLeft();
+                    middleRightMove();
+                }
+                if (cube[0][1][5] != cube[1][1][0]){
+                    moveSideToTheLeft();
+                    moveSideToTheLeft();
+                    middleRightMove();
+                }
+                if (cube[2][1][5] != cube[1][1][0]){
+                    moveSideToTheLeft();
+                    moveSideToTheLeft();
+                    middleLeftMove();
+                }
             }
             j++;
             for (int i = 0; i < 6; i++){
                 if (cube[1][2][2] == cube[1][1][2] && cube[1][0][0] == cube[1][1][1]){middleLeftMove();}
                 if (cube[1][2][2] == cube[1][1][2] && cube[1][0][0] == cube[1][1][3]){middleRightMove();}
                 horizontalMoveRight(2);
-
             }
             moveSideToTheRight();
             if (j>100){
-                System.out.println("ERR j > 100 in thirdStep");
+                System.err.println("ERR j > 100 in thirdStep");
                 break;
             }
         }
@@ -877,7 +875,7 @@ public class Cube {
                 !(cube[2][1][2] == cube[1][1][3] || cube[0][1][3] == cube[1][1][3])) {
             j++;
             if(j>100){
-                System.out.println("test j>100 top middle-------------------------------------------------");
+                System.err.println("test j>100 top middle-------------------------------------------------");
                 cubeOut();
                 break;
             }
@@ -910,7 +908,7 @@ public class Cube {
         while (cube[0][1][2] != cube[1][0][2] || cube[1][0][2] != cube[1][2][2] || cube[1][2][2] != cube[2][1][2]){
             j++;
             if(j>100){
-                System.out.println("test j>100 top middleN2-------------------------------------------------");
+                System.err.println("test j>100 top middleN2-------------------------------------------------");
                 cubeOut();
                 break;
             }
@@ -1185,15 +1183,15 @@ public class Cube {
                 rotateBottomPositiveAxis();
             }
         if (!topCornerIsPlaced()){
-            System.out.println("testERR topCornerIsPlaced------------------------------");
-            System.out.println(position);
+            System.err.println("testERR topCornerIsPlaced------------------------------");
+            System.err.println(position);
         }
 
         int j = 0;
         while (cube[0][0][2] != cube[1][1][2] || cube[0][2][2] != cube[1][1][2] || cube[2][2][2] != cube[1][1][2]){
             j++;
             if (j > 100){
-                System.out.println("testErr topCornerRotate-------------------------------");
+                System.err.println("testErr topCornerRotate-------------------------------");
                 cubeOut();
                 break;
             }
@@ -1231,7 +1229,7 @@ public class Cube {
         topMiddleSolve();
         topCornerSolve();
         if (!checkWin()){
-            System.out.println("BAD NEWS-------------------------------error");
+            System.err.println("BAD NEWS-------------------------------error");
         }else {
             System.out.println("Number of steps is " + numberOfSteps);
         }
@@ -1244,33 +1242,8 @@ public class Cube {
     }
 
     public static void main(String[] args)  throws Exception{
-
-//        for (int i = 0; i < 10000; i++){
-            Cube cube1 = new Cube(false);
-
-            cube1.solveCube();
-            cube1.cubeOut();
-//        }
-//        cube1.cubeOut();
-
-//        cube1.moveSideUP();
-//        cube1.moveSideUP();
-//        cube1.cubeOut();
-
-        /*if (!cube1.checkWinOneSide(2) || !cube1.checkWinMiddleSide()){
-            cube1.cubeOut();
-            throw new Exception("ERROR!! " + i);
-
-        }
-
-                     }  */
-//        Cube cube1 = new Cube(true);
-//        cube1.topCornerMoveRight();
-//        System.out.println(cube1.topInitializationCornerParts());
-//        cube1.cubeOut();
-//        System.out.println(cube1.checkWinMiddleSide());
-
-//        System.out.println(cube1.checkRightPositionOfCubeParts() + " - position");
-//        System.out.println(cube1.checkWin() + " - win");
+        Cube cube1 = new Cube(false);
+        cube1.solveCube();
+        cube1.cubeOut();
     }
 }

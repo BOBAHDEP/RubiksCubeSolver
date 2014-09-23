@@ -1,5 +1,5 @@
 package Cube;
-//import com.sun.imageio.*;
+
 import com.sun.imageio.plugins.bmp.BMPImageReader;
 import com.sun.imageio.plugins.bmp.BMPImageReaderSpi;
 import com.sun.imageio.plugins.gif.GIFImageReader;
@@ -26,20 +26,9 @@ import java.io.FileNotFoundException;
 
 public class PhotoRead {
 
-    /*public static final IntColor WHITE_COLOR_1 = new IntColor(255, 255, 255);
-
-    public static final IntColor YELLOW_COLOR_2 = new IntColor(255, 255, 0);
-
-    public static final IntColor BLUE_COLOR_3 = new IntColor(0, 0, 255);
-
-    public static final IntColor GREEN_COLOR_4 = new IntColor(0, 255, 0);
-
-    public static final IntColor RED_COLOR_5 = new IntColor(255, 0, 0);
-
-    public static final IntColor ORANGE_COLOR_0 = new IntColor(255, 165, 0); */
-
     public static final IntColor[] COLORS_STATIC = {new IntColor(255, 255, 255), new IntColor(255, 255, 0),
             new IntColor(0, 0, 255), new IntColor(0, 255, 0), new IntColor(255, 0, 0), new IntColor(255, 165, 0)};
+    // массив цветов граней
 
     BufferedImage img;
 
@@ -86,7 +75,7 @@ public class PhotoRead {
         int xMaxCoordinate = getWidth();
         int yMaxCoordinate = getHeight();
         if (xMaxCoordinate < yMaxCoordinate || yMaxCoordinate < 10*ny){
-            throw new Exception("Error in colorField");
+            throw new IndexOutOfBoundsException("Error in colorField");
         }
         int dy = yMaxCoordinate/ny;
         int nx = xMaxCoordinate/dy;
@@ -142,10 +131,10 @@ public class PhotoRead {
         printWriter.close();
     }
 
-    public static void saveImage(BufferedImage image, File file, ImageWriter w) throws IOException {
-        w.setOutput(new FileImageOutputStream(file));
-        w.write(image);
-        ((FileImageOutputStream)w.getOutput()).close();
+    public static void saveImage(BufferedImage image, File file, ImageWriter imageWriter) throws IOException {
+        imageWriter.setOutput(new FileImageOutputStream(file));
+        imageWriter.write(image);
+        ((FileImageOutputStream)imageWriter.getOutput()).close();
     }
 
     public void draw(String fileName, int x, int y) throws IOException{
@@ -205,7 +194,6 @@ public class PhotoRead {
                 Math.abs(xMax-xMin - (yMax-yMin)) > Math.min(xMax-xMin, yMax-yMin)){
             throw new Exception("xMin < 10 or yMin < 0 or in findFirstPoint");
         }
-        //System.out.println(xMin*getWidth()/100 + " **** " + yMin*getHeight()/100 + " *** " + getHeight());
         res[0] = xMin*getWidth()/intColors.length;
         res[1] = yMin*getHeight()/intColors[0].length;
         res[2] = xMax*getWidth()/intColors.length;
@@ -253,17 +241,7 @@ public class PhotoRead {
             return 5;
         }
 
-        /*for (int i = 0; i < COLORS_STATIC.length; i++){
-            if (Math.abs(intColor.getBlue() - COLORS_STATIC[i].getBlue()) < 100 &&
-                    Math.abs(intColor.getGreen() - COLORS_STATIC[i].getGreen()) < 100 &&
-                    Math.abs(intColor.getRed() - COLORS_STATIC[i].getRed()) < 100){
-                return i;
-            }
-        }*/
-        //System.out.println(intColor);
-        //return -1;
-
-        throw new Exception("in getIntFromIntColor didn't get number");
+        throw new IOException("in getIntFromIntColor didn't get number");
     }
 
     public int[][] getNumbers() throws  Exception{
@@ -271,6 +249,7 @@ public class PhotoRead {
         int dx = (points[2] - points[0])/3;
         int dy = (points[3] - points[1])/3;
         int[][] res = new int[3][3];
+        System.out.println("Test number colors:");
         System.out.print(new IntColor(img, points[0], points[1], points[0] + dx, points[1] + dy));
         System.out.print(". " + new IntColor(img, points[0] + dx, points[1], points[0] + 2*dx, points[1] + dy));
         System.out.println(". " +new IntColor(img, points[0] + 2*dx, points[1], points[0] + 3*dx, points[1] + dy));
@@ -290,16 +269,17 @@ public class PhotoRead {
         res[2][0] = getIntFromIntColor(new IntColor(img, points[0], points[1] + 2*dy, points[0] + dx, points[1] + 3*dy));
         res[2][1] = getIntFromIntColor(new IntColor(img, points[0] + dx, points[1] + 2*dy, points[0] + 2*dx, points[1] + 3*dy));
         res[2][2] = getIntFromIntColor(new IntColor(img, points[0] + 2*dx, points[1] + 2*dy, points[0] + 3*dx, points[1] + 3*dy));
+        System.out.println("End of test\n");
         return res;
     }
 
     public static void main(String[] args) throws Exception {
-        PhotoRead photoRead = new PhotoRead("C:\\IDEA_Projects\\RubicsCube\\Photo\\IMG4.JPG");
+        PhotoRead photoRead = new PhotoRead("Photo\\IMG3.JPG");
 
         int[][] res = photoRead.getNumbers();
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
-                System.out.print(res[i][j]);
+                System.out.print(res[i][j]);      //вывод цветов грани 3*3
             }
             System.out.println();
         }

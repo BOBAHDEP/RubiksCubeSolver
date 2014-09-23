@@ -83,7 +83,7 @@ public class IntColor {
     }
 
     @Override
-    public String toString()   //todo redo
+    public String toString()
     {
         return getRed() + " " + getGreen() + " " + getBlue();
     }
